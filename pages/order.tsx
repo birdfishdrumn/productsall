@@ -79,7 +79,8 @@ setOrders(res.data.orders)
 
         {/* <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1> */}
 
-        {orders.length ? (
+        {
+        // orders.length ? (
           orders.map((order) => (
             <div className="flex flex-wrap mt-12 justify-center border-b-2 max-w-2xl mx-auto pb-4">
               <div className="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4">
@@ -96,13 +97,16 @@ setOrders(res.data.orders)
                   ¥{order.price}
                 </div>
               </div>
+
             </div>
           ))
-        ) : (
-          <p className="text-gray-400 text-center my-4 text-lg">
-            検索に一致する購入履歴はありません。
-          </p>
-        )}
+        // )
+        // : (
+        //   <p className="text-gray-400 text-center my-4 text-lg">
+        //     検索に一致する購入履歴はありません。
+        //   </p>
+        // )
+        }
       </div>
     </Layout>
   )
