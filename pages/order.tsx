@@ -49,10 +49,10 @@ export default function order() {
 
   useEffect(() => {
     handleGetPosts()
-    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orderPrice`).then((res) => {
-      setSumPrice(res.data)
-      console.log(res.data)
-    })
+    // axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orderPrice`).then((res) => {
+    //   setSumPrice(res.data)
+    //   console.log(res.data)
+    // })
   }, [])
 
   return (
@@ -71,11 +71,10 @@ export default function order() {
           <ReactDatePicker
             startDate={startDate}
             setStartDate={setStartDate}
-            handlePush={handlePush}
           />
         </div>
 
-        <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1>
+        {/* <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1> */}
 
         {orders.length ? (
           orders.map((order) => (

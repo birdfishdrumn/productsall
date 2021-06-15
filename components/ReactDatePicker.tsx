@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import dayjs from 'dayjs'
 dayjs.locale('ja')
 
-const ReactDatePicker = ({ startDate, setStartDate, handlePush }) => {
+const ReactDatePicker = ({ startDate, setStartDate }) => {
   const initialDate = new Date()
   // const [startDate, setStartDate] = useState(initialDate)
   const handleChange = async (date: Date) => {
