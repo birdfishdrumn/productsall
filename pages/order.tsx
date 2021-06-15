@@ -23,9 +23,7 @@ export default function order() {
   const handleGetPosts = async () => {
     // const { data } = await getOrder()
     // console.log(data)
-    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`).then((res)=>{
-setOrders(res.data.orders)
-    })
+
 
   }
 
@@ -51,7 +49,9 @@ setOrders(res.data.orders)
   }, [date])
 
   useEffect(() => {
-    handleGetPosts()
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`).then((res)=>{
+setOrders(res.data.orders)
+    })
     // axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orderPrice`).then((res) => {
     //   setSumPrice(res.data)
     //   console.log(res.data)
