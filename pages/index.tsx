@@ -19,13 +19,15 @@ const PostList: React.FC = () => {
   const [open, setOpen] = React.useState(false)
   const { posts } = useAllPost()
 
-    const handleGetPosts = async () => {
-    const { data } = await getOrder()
-      console.log(data)
-      setList(data.orders)
 
-  }
 
+  console.log(list)
+
+  useEffect(() => {
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`).then((res) => {
+      setList(res.data.orders)
+    })
+  }, [])
 
 
   const handleChange = (post) => {
@@ -41,17 +43,17 @@ const PostList: React.FC = () => {
   console.log(posts)
   return (
     <Layout title="注文会計">
-      <Drawer
+      {/* <Drawer
         orders={orders}
         open={open}
         setOrders={setOrders}
         setOpen={setOpen}
         handleDrawerOpen={handleDrawerOpen}
         handleChange={handleChange}
-      />
-      {list.map((l) => {
-        l.name
-      })}
+      /> */}
+      {list.length > 0 && list.map((item) => (
+        <p>{item.name}</p>
+      ))}
 
       {/* <PostForm handleGetPosts={handleGetPosts} /> */}
 
