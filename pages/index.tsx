@@ -6,6 +6,7 @@ import Drawer from 'components/Drawer'
 import { useAllPost } from 'fooks/getPost'
 
 import { getPosts } from '../lib/post'
+import { getOrder } from '../lib/order'
 import { Post } from '../types/post'
 import { Order } from 'types/order'
 import postcss from 'postcss'
@@ -13,9 +14,19 @@ import Layout from 'components/Layout'
 
 const PostList: React.FC = () => {
   // const [posts, setPosts] = useState<Post[]>([])
+  const [list,setList ] = useState([])
   const [orders, setOrders] = useState<Order[]>([])
   const [open, setOpen] = React.useState(false)
   const { posts } = useAllPost()
+
+    const handleGetPosts = async () => {
+    const { data } = await getOrder()
+      console.log(data)
+      setList(data.orders)
+
+  }
+
+
 
   const handleChange = (post) => {
     setOrders((prevState: Order[]) => [...prevState, post])
@@ -38,6 +49,9 @@ const PostList: React.FC = () => {
         handleDrawerOpen={handleDrawerOpen}
         handleChange={handleChange}
       />
+      {list.map((l) => {
+        l.name
+      })}
 
       {/* <PostForm handleGetPosts={handleGetPosts} /> */}
 
