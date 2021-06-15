@@ -13,7 +13,7 @@ import SearchIcon from '@material-ui/icons/Search'
 
 dayjs.locale('ja')
 
-export default function order() {
+const order = () =>{
   const initialDate = new Date()
   const [orders, setOrders] = useState<Order[]>([])
   const [sumPrice, setSumPrice] = useState<number>(0)
@@ -111,6 +111,8 @@ setOrders(res.data.orders)
     </Layout>
   )
 }
+
+export default order
 
 // export async function getStaticProps() {
 //   const res = await fetch(`${API_URL}/events`)
