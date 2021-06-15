@@ -21,9 +21,12 @@ export default function order() {
   const [startDate, setStartDate] = useState<Date>(initialDate)
 
   const handleGetPosts = async () => {
-    const { data } = await getOrder()
-    console.log(data)
-    setOrders(data.orders)
+    // const { data } = await getOrder()
+    // console.log(data)
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`).then((res)=>{
+setOrders(res.data.orders)
+    })
+
   }
 
   const date = dayjs(startDate).format('YYYY-MM-DD')
