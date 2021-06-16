@@ -43,17 +43,15 @@ const PostList: React.FC = () => {
   console.log(posts)
   return (
     <Layout title="注文会計">
-      {/* <Drawer
+      <Drawer
         orders={orders}
         open={open}
         setOrders={setOrders}
         setOpen={setOpen}
         handleDrawerOpen={handleDrawerOpen}
         handleChange={handleChange}
-      /> */}
-      {list.length > 0 && list.map((item) => (
-        <p>{item.name}</p>
-      ))}
+      />
+
 
       {/* <PostForm handleGetPosts={handleGetPosts} /> */}
 

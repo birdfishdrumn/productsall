@@ -6,6 +6,7 @@ import axios from 'axios'
 import Layout from 'components/Layout'
 import PostItem from 'components/PostItem'
 import { useAllPost } from 'fooks/getPost'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const quantity = () => {
   const { posts } = useAllPost()
@@ -39,7 +40,11 @@ const quantity = () => {
                     </th>
                   </tr>
                 </thead>
-                {posts.length && posts.map((post) => <PostItem post={post} />)}
+                {posts.length ? posts.map((post) => <PostItem post={post} />) :
+                     <div className="text-gray-400 text-center m-8 text-lg mx-auto ">
+            <CircularProgress />
+          </div>
+                }
               </table>
             </div>
           </div>

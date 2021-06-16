@@ -10,6 +10,7 @@ import SelectBox from 'components/Ui/SelectBox'
 import ReactDatePicker from 'components/ReactDatePicker'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 dayjs.locale('ja')
 
@@ -52,10 +53,10 @@ const order = () =>{
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`).then((res)=>{
 setOrders(res.data.orders)
     })
-    // axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orderPrice`).then((res) => {
-    //   setSumPrice(res.data)
-    //   console.log(res.data)
-    // })
+    axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orderPrice`).then((res) => {
+      setSumPrice(res.data)
+      console.log(res.data)
+    })
   }, [])
 
   return (
@@ -77,10 +78,10 @@ setOrders(res.data.orders)
           />
         </div>
 
-        {/* <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1> */}
+        <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1>
 
         {
-        // orders.length ? (
+        orders.length ? (
           orders.map((order) => (
             <div className="flex flex-wrap mt-12 justify-center border-b-2 max-w-2xl mx-auto pb-4">
               <div className="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4">
@@ -100,12 +101,12 @@ setOrders(res.data.orders)
 
             </div>
           ))
-        // )
-        // : (
-        //   <p className="text-gray-400 text-center my-4 text-lg">
-        //     検索に一致する購入履歴はありません。
-        //   </p>
-        // )
+        )
+        : (
+          <p className="text-gray-400 text-center my-4 text-lg">
+            <CircularProgress />
+          </p>
+        )
         }
       </div>
     </Layout>

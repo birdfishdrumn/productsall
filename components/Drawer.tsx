@@ -22,6 +22,8 @@ import axios from 'axios'
 import { toast } from "react-toastify"
 import { useAllPost } from 'fooks/getPost'
 import ProductCard from "components/ProductCard"
+import CircularProgress from '@material-ui/core/CircularProgress';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 
 const drawerWidth = 280
 
@@ -116,10 +118,15 @@ export default function PersistentDrawerRight(props) {
 
       <div className="flex items-center justify-center">
         <div className="grid grid-cols-4 gap-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-          {posts.length &&
+          {posts.length ?
             posts.map((post) => (
               <ProductCard post={post} handleChange={handleChange}/>
-            ))}
+            ))
+              :
+                <div className="text-gray-400 text-center m-8 text-lg mx-auto ">
+            <CircularProgress />
+          </div>
+          }
         </div>
       </div>
 
@@ -135,7 +142,15 @@ export default function PersistentDrawerRight(props) {
         anchor="right"
       >
 
+           <List>
+          <ListItem>
+            <ListItemIcon>
+              <ShoppingCartIcon />
+            </ListItemIcon>
+            <ListItemText className="mx-8" primary="かごの中身" />
 
+          </ListItem>
+        </List>
         <Divider />
         <List>
           {orders.length ? (

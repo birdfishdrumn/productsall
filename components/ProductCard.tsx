@@ -9,8 +9,17 @@ const ProductCard = ({ post, handleChange }) => {
                   <div className="flex justify-between">
                     <p className="text-md text-gray-500  sm:text-xs  md:text-xs lg:text-xs">{post.name}</p>
                     <p className="text-md font-semibold text-red-400 ">¥{post.price}</p>
-                  </div>
-                  <img src={post.image.url} className="mx-auto mt-2 " />
+        </div>
+        <div className="relative">
+          <img src={post.image.url} className="mx-auto mt-2 " />
+          {post.stock - stock <= 3 ?
+             <p className="absolute right-2 bottom-2 font-semibold bg-indigo-200 p-2 rounded-full text-red-500 opacity-75">{post.stock - stock }</p>
+          :
+
+            <p className="absolute right-2 bottom-2 font-semibold bg-indigo-200 p-2 rounded-full opacity-75">{post.stock - stock}</p>
+          }
+        </div>
+
                 </div>
 
                 <div className="absolute bottom-0 left-0 ">
