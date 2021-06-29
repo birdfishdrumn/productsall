@@ -6,7 +6,6 @@ import Divider from '@material-ui/core/Divider'
 import axios, { AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import 'dayjs/locale/ja'
-import SelectBox from 'components/Ui/SelectBox'
 import ReactDatePicker from 'components/ReactDatePicker'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
@@ -84,17 +83,17 @@ setOrders(res.data.orders)
         orders.length ? (
           orders.map((order) => (
             <div className="flex flex-wrap mt-12 justify-center border-b-2 max-w-2xl mx-auto pb-4">
-              <div className="grid grid-cols-1 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4">
+              <div className="grid grid-cols-6 sm:grid-cols-6 md:grid-cols-6 lg:grid-cols-6 xl:grid-cols-6 gap-4">
                 <div className="col-span-2 sm:col-span-1 xl:col-span-1">
                   <img alt="..." src={order.image} className="h-24 w-24 rounded  mx-auto" />
                 </div>
                 <div className="col-span-2 sm:col-span-4 xl:col-span-4">
                   <h3 className="font-semibold text-black">{order.name}</h3>
                   <p className="my-4 text-gray-400">
-                    購入時間:{dayjs(order.created_at).format('YYYY/MM/DD HH:mm')}
+                    {dayjs(order.created_at).format('YYYY/MM/DD HH:mm')}
                   </p>
                 </div>
-                <div className="text-red-400 text-lg col-span-2 sm:col-span-1 xl:col-span-1 italic ">
+                <div className="text-red-400 text-lg col-span-2 sm:col-span-1 xl:col-span-1 italic my-auto">
                   ¥{order.price}
                 </div>
               </div>

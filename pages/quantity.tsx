@@ -1,8 +1,4 @@
 import React, { useEffect, useState } from 'react'
-
-import { getPosts } from '../lib/post'
-import { Post } from '../types/post'
-import axios from 'axios'
 import Layout from 'components/Layout'
 import PostItem from 'components/PostItem'
 import { useAllPost } from 'fooks/getPost'

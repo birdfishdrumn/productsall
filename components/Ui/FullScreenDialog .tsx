@@ -10,7 +10,7 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import useMediaQuery from '@material-ui/core/useMediaQuery'
 import { useTheme } from '@material-ui/core/styles'
 import DialogTitle from '@material-ui/core/DialogTitle'
-import { dialogState, idState } from 'store/store'
+import { dialogState, idState,orderState } from 'store/store'
 import { atom, useRecoilState } from 'recoil'
 import PostForm from 'components/PostForm'
 
@@ -37,6 +37,7 @@ const FullScreenDialog = () => {
   const classes = useStyles()
   const [open, setOpen] = useRecoilState(dialogState)
   const [id, setId] = useRecoilState(idState)
+  const [orders,setOrders] = useRecoilState(orderState)
 
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -44,6 +45,7 @@ const FullScreenDialog = () => {
   const handleClose = (): void => {
     setOpen(false)
     setId('')
+    setOrders([])
   }
   return (
     <div>
@@ -56,7 +58,27 @@ const FullScreenDialog = () => {
       >
         {/* <DialogTitle id="form-dialog-title" className="center">{title}</DialogTitle> */}
         <DialogContent>
-          <PostForm />
+          {orders.length > 0 ? (
+            <>
+                <h1 className="text-2xl text-center my-4 border-gray-400 border-2 p-2">購入した商品</h1>
+
+              {orders.map((order) => (
+                <div key={order.id}>
+
+                  <div>
+                    <img src={order.image.url} className="w-20 h-20"/>
+
+                    <p>{order.name}</p>
+                  </div>
+                </div>
+              ))}
+
+            </>
+          )
+          :
+                   <PostForm />
+        }
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">

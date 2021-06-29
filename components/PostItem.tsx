@@ -5,9 +5,14 @@ import IconButton from '@material-ui/core/IconButton'
 import FloatingActionButton from 'components/Ui/FloatingActionButton'
 import { dialogState, idState } from 'store/store'
 import { useRecoilState } from 'recoil'
-import {useProductStock} from "fooks/getProductStock"
+import { useProductStock } from "fooks/getProductStock"
+import { Post } from "types/post"
 
-const PostItem = ({ post }) => {
+interface Props {
+  post : Post
+}
+
+const PostItem: React.FC<Props> = ({ post }) => {
 
   const [id, setId] = useRecoilState(idState)
   const [open, setOpen] = useRecoilState(dialogState)
@@ -15,7 +20,7 @@ const PostItem = ({ post }) => {
   const { stock } = useProductStock(name)
 
 
-  const handleDialog = (id: string) => {
+  const handleDialog = (id: string):void=> {
     setOpen(true)
     setId(id)
   }

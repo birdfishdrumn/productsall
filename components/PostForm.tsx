@@ -13,6 +13,7 @@ import { useRecoilValue, useRecoilState } from 'recoil'
 import { createPost, getPartialPost, updatePost } from '../lib//post'
 import { toast } from 'react-toastify'
 import axios from 'axios'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 const useStyles = makeStyles((theme: Theme) => ({
   form: {
@@ -42,14 +43,11 @@ const borderStyles = {
   border: 1,
 }
 
-interface PostFormProps {
-  handleGetPosts?: Function
-}
 
-const PostForm = ({ handleGetPosts }: PostFormProps) => {
+
+const PostForm = () => {
   const classes = useStyles()
   const id = useRecoilValue(idState)
-  console.log(id)
 
   const [name, setName] = useState<string>('')
   const [image, setImage] = useState<File>()
@@ -58,6 +56,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
   const [preview, setPreview] = useState<string>('')
   const [open, setOpen] = useRecoilState(dialogState)
   const [posts, setPosts] = useRecoilState(postsState)
+  const [isLoading,setIsLoading]= useState<boolean>(false)
 
   const uploadImage = useCallback((e) => {
     const file = e.target.files[0]
@@ -84,6 +83,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
 
   const handleCreatePost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsLoading(true)
 
     const data = createFormData()
     // 編集の場合
@@ -91,7 +91,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
       await updatePost(data, id).then((res) => {
         setPosts(res.data.posts)
         setOpen(false)
-        handleGetPosts && handleGetPosts()
+        setIsLoading(false)
         toast.success('商品を編集しました！')
       })
       // 新規登録の場合
@@ -99,7 +99,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
       await createPost(data).then((res) => {
         setPosts(res.data.posts)
         setOpen(false)
-        handleGetPosts && handleGetPosts()
+         setIsLoading(false)
         toast.success('商品を追加しました！')
       })
     }
@@ -183,6 +183,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
           </Box>
         ) : null}
         <div className={classes.submitBtn}>
+
           <Button
             type="submit"
             variant="contained"
@@ -191,7 +192,7 @@ const PostForm = ({ handleGetPosts }: PostFormProps) => {
             disabled={!name || name.length > 140}
             className={classes.submitBtn}
           >
-            {id ? '編集' : '登録'}
+            {isLoading ? <CircularProgress size={24}/>:id ? '編集' : '登録' }
           </Button>
         </div>
       </form>

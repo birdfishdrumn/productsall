@@ -4,6 +4,7 @@ import { Container, AppProps } from 'next/app'
 import { MuiThemeProvider } from '@material-ui/core/styles'
 import 'tailwindcss/tailwind.css'
 import FullScreenDialog from 'components/Ui/FullScreenDialog '
+import Dialog from "components/Ui/Dialog"
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 // import {theme} from "styles/theme";
@@ -18,6 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   return (
     <RecoilRoot>
+      <Dialog/>
       <FullScreenDialog />
       <ToastContainer />
       <Component {...pageProps} />

@@ -1,27 +1,19 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import axios from 'axios'
-
-import PostForm from 'components/PostForm'
 import Drawer from 'components/Drawer'
 import { useAllPost } from 'fooks/getPost'
-
-import { getPosts } from '../lib/post'
-import { getOrder } from '../lib/order'
 import { Post } from '../types/post'
-import { Order } from 'types/order'
-import postcss from 'postcss'
 import Layout from 'components/Layout'
+import { orderState } from 'store/store'
+import { useRecoilValue, useRecoilState } from 'recoil'
 
 const PostList: React.FC = () => {
-  // const [posts, setPosts] = useState<Post[]>([])
-  const [list,setList ] = useState([])
-  const [orders, setOrders] = useState<Order[]>([])
 
+  const [list,setList ] = useState([])
+  const [orders, setOrders] = useRecoilState(orderState)
   const { posts } = useAllPost()
 
 
-
-  console.log(list)
 
   useEffect(() => {
     axios.get(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`).then((res) => {
@@ -29,9 +21,10 @@ const PostList: React.FC = () => {
     })
   }, [])
 
+  // 商品を買い物カゴに入れる処理
 
-  const handleChange = (post) => {
-    setOrders((prevState: Order[]) => [...prevState, post])
+  const handleChange = (post:Post) => {
+    setOrders((prevState: Post[]) => [...prevState, post])
 
   }
 

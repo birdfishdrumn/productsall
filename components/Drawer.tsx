@@ -1,17 +1,13 @@
-import React, { useState } from 'react'
+import React, { SetStateAction, useState } from 'react'
 import clsx from 'clsx'
 import { makeStyles, useTheme, Theme, createStyles } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
+
 import CssBaseline from '@material-ui/core/CssBaseline'
 import List from '@material-ui/core/List'
-import Typography from '@material-ui/core/Typography'
-import Divider from '@material-ui/core/Divider'
+
 import IconButton from '@material-ui/core/IconButton'
-import MenuIcon from '@material-ui/icons/Menu'
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
-import ChevronRightIcon from '@material-ui/icons/ChevronRight'
+
 import ListItem from '@material-ui/core/ListItem'
 import ListItemIcon from '@material-ui/core/ListItemIcon'
 import ListItemText from '@material-ui/core/ListItemText'
@@ -22,17 +18,17 @@ import axios from 'axios'
 import { toast } from "react-toastify"
 import { useAllPost } from 'fooks/getPost'
 import ProductCard from "components/ProductCard"
+import OrderItem from "components/OrderItem"
 import CircularProgress from '@material-ui/core/CircularProgress';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Badge from '@material-ui/core/Badge';
+import { confirmDialogState, idState } from 'store/store'
+import { useRecoilState } from 'recoil'
+import {Post} from "types/post"
+
 import order from 'pages/order'
 
 let  drawerWidth = "100%"
-// if (window.matchMedia("(max-width: 400px)").matches) {
-//  drawerWidth = 280
-// } else {
-//    drawerWidth = 100
-// }
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -64,34 +60,43 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 
-export default function PersistentDrawerRight(props) {
+interface Props {
+  orders: Post[]
+  setOrders: React.Dispatch<React.SetStateAction<Post[]>>
+  handleChange: (any) =>void
+}
+
+const PersistentDrawerRight:React.FC<Props> = (props) =>{
   const { orders, setOrders, handleChange } = props
-    const { posts } = useAllPost()
-const [open, setOpen] = useState(false);
+  const { posts } = useAllPost()
+
+
   const classes = useStyles()
   const theme = useTheme()
+    const [dialogOpen, setDialogOpen] = useRecoilState(confirmDialogState)
+  const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [productPrice, setProductPrice] = useState<number>(0)
+  const priceList:number[] = [1430,1650,1760,1980,2200,2640,3520]
 
-  const handleDrawerClose = () => {
-    setOpen(false)
-  }
-    const handleDrawerOpen = () => {
+
+    const handleDrawerOpen = ():void => {
     setOpen(!open);
   };
 
 
-  const price = orders.map((order) => order.price)
-  const idArray = orders.map((order) => order.id)
+  const price:number[] = orders.map((order) => order.price)
+  const idArray:string[] = orders.map((order) => order.id)
 
   console.log(price)
 
-  const result =
+  const result: number =
     price.length &&
-    price.reduce(function (a, b, index, arr) {
+    price.reduce(function (a, b) {
       return a + b
     })
 
-  const submitOrder = async () => {
+  const submitOrder = async ():Promise<void> => {
     orders.forEach(async (order) => {
       setIsLoading(true)
       const data = await {
@@ -101,17 +106,19 @@ const [open, setOpen] = useState(false);
       }
       console.log(data)
 
+
       await axios.post(`${process.env.NEXT_PUBLIC_HOST}/api/v2/orders`, data).then((res) => {
         setIsLoading(false)
-        setOrders([])
-        toast.success("商品の購入が完了しました！")
+        // setOrders([])
+
+        setDialogOpen(true)
 
         console.log(res)
       })
     })
   }
 
-  const handleDelete = async (id: string) => {
+  const handleDelete =  (id: string):void => {
     // console.log(idArray)
     const removeId = idArray.filter(function (i) {
       return i != id
@@ -127,7 +134,7 @@ const [open, setOpen] = useState(false);
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <IconButton className="fixed top-4 right-4 z-50" onClick={()=>handleDrawerOpen()}>
+      <IconButton className="fixed top-4 right-4 z-999" style={{ zIndex: 99999 }} onClick={()=>handleDrawerOpen()}>
           <Badge badgeContent={orders.length} color="primary" >
 
                     <ShoppingCartIcon  style={{fontSize:"40px"}}/>
@@ -135,13 +142,38 @@ const [open, setOpen] = useState(false);
                   </IconButton>
 
       <main className={classes.content}>
+        <div className="flex overflow-x-auto pb-4 ">
+          {priceList.map(price=>(
+ <div onClick={()=>setProductPrice(price)}>
+            <div className="relative flex-none  text-red-400 border-2 border-red-300   p-3 mx-1 rounded-xl">
+             {price}
+            </div>
+
+          </div>
+          ))   }
+
+
+      </div>
+
 
       <div className="flex items-center justify-center">
         <div className="grid grid-cols-3 gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
-          {posts.length ?
-            posts.map((post) => (
+            {posts.length ?
+              productPrice > 0 ?
+                         posts.
+                 filter(
+            (item:Post) =>
+              item.price === productPrice
+          ).
+                map((post) => (
               <ProductCard post={post} handleChange={handleChange}/>
             ))
+                :
+                     posts.map((post) => (
+              <ProductCard post={post} handleChange={handleChange}/>
+            ))
+
+
               :
                 <div className="text-gray-400 text-center m-8 text-lg mx-auto ">
             <CircularProgress />
@@ -168,24 +200,8 @@ const [open, setOpen] = useState(false);
                 <div className="grid gap-1 grid-cols-4  lg:grid-cols-6 xl:grid-cols-8">
           {orders.length ? (
             orders.map((order) => (
+             <OrderItem order={order} handleDelete={handleDelete}/>
 
-
-                <div className="pb-2  m-1  py-1 px-0 h-full">
-                  <div className="flex justify-between">
-
-                    <p className="text-md font-semibold text-red-400 ">¥{order.price}</p>
-                </div>
-                <div className="relative">
-                      <img src={order.image.url} className="mx-auto mt-2 ob object-cover w-16" />
-                           <IconButton onClick={() => handleDelete(order.id)} className="absolute bottom-0  right-0">
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-
-                        <p className="text-md text-gray-500  sm:text-xs  md:text-xs lg:text-xs">{order.name}</p>
-
-
-                </div>
 
             ))
             )
@@ -212,9 +228,11 @@ const [open, setOpen] = useState(false);
           onClick={() => submitOrder()}
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mx-4 mb-2"
         >
-          {isLoading ? 'Loading...' : '購入する'}
+          {isLoading ? <CircularProgress color="inherit"size={15}/>:"購入する"}
         </button>
       </Drawer>
     </div>
   )
 }
+
+export default PersistentDrawerRight
