@@ -21,7 +21,7 @@ export default function Header() {
               <a>注文会計</a>
             </Link>
           </li>
-          <li className="p-4" onClick={()=>router.push("/order")}>
+          <li className="p-4" onClick={()=>router.push("/orderhistory")}>
 
               <a>注文履歴</a>
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from "@material-ui/icons/Delete"
 import IconButton from '@material-ui/core/IconButton'
 import FloatingActionButton from 'components/Ui/FloatingActionButton'
-import { dialogState, idState } from 'store/store'
+import { dialogState, idState,postsState } from 'store/store'
 import { useRecoilState } from 'recoil'
 import { useProductStock } from "fooks/getProductStock"
+import {deletePost} from "lib/post"
 import { Post } from "types/post"
 
 interface Props {
@@ -16,14 +18,28 @@ const PostItem: React.FC<Props> = ({ post }) => {
 
   const [id, setId] = useRecoilState(idState)
   const [open, setOpen] = useRecoilState(dialogState)
+  const [posts,setPosts] = useRecoilState(postsState)
   const name= post.name
   const { stock } = useProductStock(name)
+
 
 
   const handleDialog = (id: string):void=> {
     setOpen(true)
     setId(id)
   }
+
+
+  const handleDelete = async (id: string): Promise<void> => {
+    const result = window.confirm('こちらの商品を削除しますか？');
+     const res = await deletePost(id)
+    const posts = await res.data.posts
+      result &&
+
+    setPosts(posts)
+    }
+
+
 
 
   return (
@@ -68,6 +84,10 @@ const PostItem: React.FC<Props> = ({ post }) => {
         <td className="px-2 py-5  border-b border-gray-200 bg-white text-sm">
           <IconButton onClick={() => handleDialog(post.id)}>
             <EditIcon />
+          </IconButton>
+
+          <IconButton onClick={() => handleDelete(post.id)}>
+            <DeleteIcon />
           </IconButton>
         </td>
       </tr>

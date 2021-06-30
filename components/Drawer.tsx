@@ -77,7 +77,7 @@ const PersistentDrawerRight:React.FC<Props> = (props) =>{
   const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [productPrice, setProductPrice] = useState<number>(0)
-  const priceList:number[] = [1430,1650,1760,1980,2200,2640,3520]
+  const priceList:number[] = [0,1430,1650,1760,1870,1980,2200,2640,3520]
 
 
     const handleDrawerOpen = ():void => {
@@ -130,6 +130,8 @@ const PersistentDrawerRight:React.FC<Props> = (props) =>{
     )
   }
 
+  const style="text-sm relative flex-none  text-red-400 border-2 border-red-300  w-14 text-center px-2 py-1 mx-1 rounded-xl"
+
   console.log(result)
   return (
     <div className={classes.root}>
@@ -145,8 +147,9 @@ const PersistentDrawerRight:React.FC<Props> = (props) =>{
         <div className="flex overflow-x-auto pb-4 ">
           {priceList.map(price=>(
  <div onClick={()=>setProductPrice(price)}>
-            <div className="relative flex-none  text-red-400 border-2 border-red-300   p-3 mx-1 rounded-xl">
-             {price}
+              <div className={style}>
+
+             {price === 0 && "all" || price === 1430 && "台" || price=== 1650 && "体験" || price > 0 && price}
             </div>
 
           </div>
