@@ -3,6 +3,7 @@ import { useProductStock } from "fooks/getProductStock"
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import IconButton from "@material-ui/core/IconButton"
 import RemoveShoppingCartIcon from '@material-ui/icons/RemoveShoppingCart';
+import Image from "next/image"
 
 const ProductCard = ({ post, handleChange }) => {
    const { stock } = useProductStock(post.name)
@@ -14,7 +15,7 @@ const ProductCard = ({ post, handleChange }) => {
 
  <p className="text-md text-gray-500  sm:text-xs  md:text-xs lg:text-xs">{post.name?.slice(0,6)}</p>
         <div className="relative">
-          <img src={post.image.url} className="mx-auto mt-2 ob object-cover w-60 h-30" />
+          <Image width={50} height={50} src={post.image.url} className="mx-auto mt-2 ob object-cover w-60 h-30" />
               <div className="rounded-lg w-full mx-auto absolute top-0 left-0">
           {post.stock - stock === 0 ?
                  <IconButton>

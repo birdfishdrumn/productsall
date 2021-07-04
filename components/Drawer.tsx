@@ -144,7 +144,7 @@ const PersistentDrawerRight:React.FC<Props> = (props) =>{
                   </IconButton>
 
       <main className={classes.content}>
-        <div className="flex overflow-x-auto pb-4 ">
+        <div className="flex overflow-x-auto pb-4 mx-auto my-4">
           {priceList.map(price=>(
  <div onClick={()=>setProductPrice(price)}>
               <div className={style}>
@@ -160,7 +160,7 @@ const PersistentDrawerRight:React.FC<Props> = (props) =>{
 
 
       <div className="flex items-center justify-center">
-        <div className="grid grid-cols-3 gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid grid-cols-4 gap-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4">
             {posts.length ?
               productPrice > 0 ?
                          posts.

@@ -43,7 +43,7 @@ const Layout: React.FC<PROPS> = ({ title, keywords, description, children }) => 
 
       <Header />
 
-      <div className="m-3">{children}</div>
+      <div className="my-5">{children}</div>
       <Footer />
     </div>
   )

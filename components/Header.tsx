@@ -16,19 +16,24 @@ export default function Header() {
 
       <nav>
         <ul className="p-4 flex">
-          <li className="p-4">
+          <li className="p-4 border-2 border-green-300">
             <Link href="/">
-              <a>注文会計</a>
+              <a>買い物</a>
             </Link>
           </li>
           <li className="p-4" onClick={()=>router.push("/orderhistory")}>
 
-              <a>注文履歴</a>
+              <a>履歴</a>
 
           </li>
           <li className="p-4">
             <Link href="/quantity">
-              <a>販売商品</a>
+              <a>商品</a>
+            </Link>
+          </li>
+                <li className="p-4">
+            <Link href="/quantity">
+              <a>設定</a>
             </Link>
           </li>
         </ul>

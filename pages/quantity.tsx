@@ -3,6 +3,7 @@ import Layout from 'components/Layout'
 import PostItem from 'components/PostItem'
 import { useAllPost } from 'fooks/getPost'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import FloatingActionButton from 'components/Ui/FloatingActionButton'
 
 const quantity = () => {
   const { posts } = useAllPost()
@@ -46,6 +47,7 @@ const quantity = () => {
           </div>
         </div>
       </div>
+           <FloatingActionButton />
     </Layout>
   )
 }
