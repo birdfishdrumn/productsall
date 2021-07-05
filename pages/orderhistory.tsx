@@ -20,12 +20,6 @@ const order = () =>{
   const [search, setSearch] = useState<string>(null)
   const [startDate, setStartDate] = useState<Date>(initialDate)
 
-  const handleGetPosts = async () => {
-    // const { data } = await getOrder()
-    // console.log(data)
-
-
-  }
 
   const date = dayjs(startDate).format('YYYY-MM-DD')
 

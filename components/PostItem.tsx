@@ -11,16 +11,17 @@ import {deletePost} from "lib/post"
 import { Post } from "types/post"
 
 interface Props {
-  post : Post
+  post: Post
+  date: string;
 }
 
-const PostItem: React.FC<Props> = ({ post }) => {
+const PostItem: React.FC<Props> = ({ post,date }) => {
 
   const [id, setId] = useRecoilState(idState)
   const [open, setOpen] = useRecoilState(dialogState)
   const [posts,setPosts] = useRecoilState(postsState)
   const name= post.name
-  const { stock } = useProductStock(name)
+  const { stock } = useProductStock(name,date)
 
 
 
@@ -91,7 +92,7 @@ const PostItem: React.FC<Props> = ({ post }) => {
           </IconButton>
         </td>
       </tr>
-      <FloatingActionButton />
+
     </tbody>
   )
 }

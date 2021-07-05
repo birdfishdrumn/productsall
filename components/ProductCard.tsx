@@ -18,7 +18,7 @@ const ProductCard = ({ post, handleChange }) => {
 
         <div className="relative">
           {process.env.NODE_ENV === 'production' ?
-            <Image width={80} height={80} src={post.image.url} className="mx-auto mt-2 ob object-cover w-60 h-30" />
+            <Image width={85} height={85} src={post.image.url} className="mx-auto mt-2 ob object-cover w-60 h-30" />
             :
              <img src={post.image.url} className="mx-auto mt-2 ob object-cover w-60 h-30" />
         }
