@@ -7,7 +7,7 @@ export default function Header() {
    const router = useRouter()
 
   return (
-    <header className="bg-green-50">
+    <header className="bg-green-500">
       {/* <div className={styles.logo}>
         <Link href='/'>
           <a>DJ Events</a>
@@ -16,26 +16,22 @@ export default function Header() {
 
       <nav>
         <ul className="p-4 flex">
-          <li className="p-4 border-2 border-green-300">
+          <li className="p-4 text-white font-semibold">
             <Link href="/">
               <a>買い物</a>
             </Link>
           </li>
-          <li className="p-4" onClick={()=>router.push("/orderhistory")}>
+          <li className="p-4 text-white font-semibold" onClick={()=>router.push("/orderhistory")}>
 
               <a>履歴</a>
 
           </li>
-          <li className="p-4">
+          <li className="p-4 text-white font-semibold">
             <Link href="/quantity">
               <a>商品</a>
             </Link>
           </li>
-                <li className="p-4">
-            <Link href="/quantity">
-              <a>設定</a>
-            </Link>
-          </li>
+
         </ul>
       </nav>
     </header>

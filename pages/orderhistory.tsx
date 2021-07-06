@@ -10,6 +10,7 @@ import ReactDatePicker from 'components/ReactDatePicker'
 import IconButton from '@material-ui/core/IconButton'
 import SearchIcon from '@material-ui/icons/Search'
 import CircularProgress from '@material-ui/core/CircularProgress';
+import OrderChart from "components/OrderChart"
 
 dayjs.locale('ja')
 
@@ -19,6 +20,8 @@ const order = () =>{
   const [sumPrice, setSumPrice] = useState<number>(0)
   const [search, setSearch] = useState<string>(null)
   const [startDate, setStartDate] = useState<Date>(initialDate)
+   const [isActive,setIsActive] = useState<boolean>(false)
+
 
 
   const date = dayjs(startDate).format('YYYY-MM-DD')
@@ -52,8 +55,11 @@ setOrders(res.data.orders)
     })
   }, [])
 
+    const style = "m-4 p-4 text-gray-400 rounded-lg border-2 cursor-pointer"
+
   return (
     <Layout title="注文リスト">
+
       <div id="menu" className="container mx-auto px-4 lg:pt-24 lg:pb-64">
         <div className="flex flex-wrap text-center justify-center">
           <div className="w-full lg:w-6/12 px-4">
@@ -70,10 +76,19 @@ setOrders(res.data.orders)
             setStartDate={setStartDate}
           />
         </div>
+           <div className="flex justify-center">
+        <p onClick={()=>setIsActive(false)}className={isActive ? style : style + " border-indigo-400 text-indigo-500 " }>在庫設定</p>
+          <p onClick={()=>setIsActive(true)} className={isActive ? style + " border-indigo-400 text-indigo-500 ": style }>日別グラフ</p>
+        </div>
 
-        <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1>
+        {isActive ?
+          <OrderChart orders={orders} date={date} sumPrice={sumPrice}/>
+        :
+          <>
+       <h1 className="text-gray-400 m-8 text-2xl text-center">合計金額{sumPrice}</h1>
 
         {
+
         orders.length ? (
           orders.map((order) => (
             <div className="flex flex-wrap mt-12 justify-center border-b-2 max-w-2xl mx-auto pb-4">
@@ -101,6 +116,9 @@ setOrders(res.data.orders)
           </p>
         )
         }
+        </>
+      }
+
       </div>
     </Layout>
   )

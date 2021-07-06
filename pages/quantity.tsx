@@ -44,7 +44,7 @@ const quantity = () => {
           <div className="flex flex-wrap text-center justify-center">
           <div className="w-full lg:w-6/12 px-4">
 
-            <p className="m-4 ">{search && search}の検索結果</p>
+
           </div>
         </div>
         <div className="mx-auto text-center">
