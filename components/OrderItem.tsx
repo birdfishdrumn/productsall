@@ -11,13 +11,13 @@ interface Props {
 const OrderItem:React.FC<Props> = ({order,handleDelete}) => {
   return (
     <div>
-        <div className="pb-2  m-1  py-1 px-0 h-full">
+        <div className="pb-1  m-1  py-1 px-0 h-full">
                   <div className="flex justify-between">
 
                     <p className="text-md font-semibold text-red-400 ">¥{order.price}</p>
                 </div>
                 <div className="relative">
-          <img src={order.image.url} className="mx-auto mt-2 ob object-cover w-16" />
+          <img src={order.image.url} className="mx-auto mt-1 ob object-cover w-16" />
           {handleDelete &&
                   <IconButton onClick={() => handleDelete(order.id)} className="absolute bottom-0  right-0">
                     <DeleteIcon />
@@ -25,8 +25,6 @@ const OrderItem:React.FC<Props> = ({order,handleDelete}) => {
           }
 
                 </div>
-
-                        <p className="text-md text-gray-500  sm:text-xs  md:text-xs lg:text-xs">{order.name?.slice(0,4)}</p>
 
 
                 </div>

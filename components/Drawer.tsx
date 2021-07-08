@@ -200,7 +200,7 @@ const PersistentDrawerRight:React.FC<Props> = (props) =>{
 
  <div className="flex items-center justify-center">
 
-                <div className="grid gap-1 grid-cols-4  lg:grid-cols-6 xl:grid-cols-8">
+                <div className="grid  grid-cols-5  lg:grid-cols-6 xl:grid-cols-8">
           {orders.length ? (
             orders.map((order) => (
              <OrderItem order={order} handleDelete={handleDelete}/>

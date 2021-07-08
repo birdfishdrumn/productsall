@@ -77,7 +77,7 @@ setOrders(res.data.orders)
           />
         </div>
            <div className="flex justify-center">
-        <p onClick={()=>setIsActive(false)}className={isActive ? style : style + " border-indigo-400 text-indigo-500 " }>在庫設定</p>
+        <p onClick={()=>setIsActive(false)}className={isActive ? style : style + " border-indigo-400 text-indigo-500 " }>注文履歴</p>
           <p onClick={()=>setIsActive(true)} className={isActive ? style + " border-indigo-400 text-indigo-500 ": style }>日別グラフ</p>
         </div>
 

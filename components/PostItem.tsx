@@ -75,13 +75,7 @@ const PostItem: React.FC<Props> = ({ post,date }) => {
             )}
           </p>
         </td>
-        <td className="px-3 w-96 py-5 border-b border-gray-200 bg-white text-sm text-left ml-auto">
-          <div className="flex flex-wrap">
-            {[...Array(stock)].map((stock) => (
-              <div className="w-2 h-2 bg-gray-500 m-1" />
-            ))}
-          </div>
-        </td>
+
         <td className="px-2 py-5  border-b border-gray-200 bg-white text-sm">
           <IconButton onClick={() => handleDialog(post.id)}>
             <EditIcon />
