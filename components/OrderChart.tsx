@@ -4,6 +4,8 @@ import { orderState } from 'store/store';
 import { useProductStock } from "fooks/getProductStock"
 import { Order } from 'types/order'
 import axios, { AxiosResponse } from 'axios'
+import count from 'count-array-values';
+
 interface Props {
   orders: Order[];
   date: string
@@ -13,6 +15,9 @@ interface Props {
 const HorizontalBarChart: React.FC<Props> = ({ orders, date,sumPrice }) => {
 
   console.log(orders.map((post) => post.name))
+  const popular = orders.map((post) => post.name)
+  const tagNum = count(orders.flat());
+  console.log(tagNum)
   const [sales,setSales] = useState<any[]>([])
     const newDate = new Date()
     const week = []

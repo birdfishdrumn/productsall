@@ -21,20 +21,8 @@ const quantity = () => {
   const [orders, setOrders] = useState<Order[]>([])
   const [isActive,setIsActive] = useState<boolean>(false)
 
-    const date = dayjs(startDate).format('YYYY-MM-DD')
+    const date = startDate != null  && dayjs(startDate).format('YYYY-MM-DD')
 
-  const handlePush = useCallback(async () => {
-    const resData: AxiosResponse<any> = await axios.post(
-      `${process.env.NEXT_PUBLIC_HOST}/api/v2/searchDate`,
-      {
-        date: date,
-      }
-    )
-
-    setSearch(date)
-    setOrders(resData.data.orders)
-
-  }, [date])
 
   const style = "m-4 p-4 text-gray-400 rounded-lg border-2 cursor-pointer"
 
@@ -47,10 +35,11 @@ const quantity = () => {
 
           </div>
         </div>
-        <div className="mx-auto text-center">
-          <IconButton onClick={() => handlePush()}>
-            <SearchIcon />
-          </IconButton>
+      <div className="mx-auto flex justify-center text-center">
+        <div onClick={()=>setStartDate(null)}className="my-auto border-2 border-red-400 rounded-xl text-red-400 px-2 mx-4">
+          allDay
+        </div>
+
           <ReactDatePicker
             startDate={startDate}
             setStartDate={setStartDate}

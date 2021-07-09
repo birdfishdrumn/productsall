@@ -23,7 +23,6 @@ const OrderItem:React.FC<Props> = ({order,handleDelete}) => {
                     <DeleteIcon />
                   </IconButton>
           }
-
                 </div>
 
 

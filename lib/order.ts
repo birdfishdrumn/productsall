@@ -14,6 +14,6 @@ export const getOrder = (): AxiosPromise<OrderApiJson> => {
 // }
 
 // // post削除
-// export const deletePost = (id: string): AxiosPromise => {
-//   return client.delete(`/posts/${id}`)
-// }
+export const deleteOrder = (id: string): AxiosPromise => {
+  return orderClient.delete(`/orders/${id}`)
+}
